@@ -1,6 +1,10 @@
-- task: AzureKeyVault@1
+- task: Maven@3
   inputs:
-    azureSubscription: 'Service Principal'
-    KeyVaultName: 'demo-on-demand-vault'
-    SecretsFilter: '*'
-    RunAsPreJob: false
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
