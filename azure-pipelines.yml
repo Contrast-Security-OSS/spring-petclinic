@@ -1,36 +1,6 @@
-# Maven
 - task: AzureKeyVault@1
   inputs:
     azureSubscription: 'Service Principal'
     KeyVaultName: 'demo-on-demand-vault'
     SecretsFilter: '*'
     RunAsPreJob: false
-
-trigger:
-- master
-
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-
-task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'curl -X GET https://eval.contrastsecurity.com/Contrast/api/ng/$(contrast-id)/agents/default/JAVA -H "Authorization: $(contrast-auth)" -H "API-Key: $(contrast-key)" -H "Accept: application/json" -OJ'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
-    
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
--
