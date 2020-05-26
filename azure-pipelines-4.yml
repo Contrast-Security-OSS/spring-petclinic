@@ -37,7 +37,7 @@ stages:
       - task: Bash@3
         inputs:
           targetType: 'inline'
-          script: 'curl -X GET https://eval.contrastsecurity.com/Contrast/api/ng/$(contrast-id)/agents/default/JAVA -H ''''Authorization: $(contrast-auth)'''' -H ''''API-Key: $(contrast-key)'''' -H ''''Accept: application/json'''' -OJ'
+          script: 'curl -X GET https://eval.contrastsecurity.com/Contrast/api/ng/$(contrast-id)/agents/default/JAVA -H "Authorization: $(contrast-auth)" -H "API-Key: $(contrast-key)" -H "Accept: application/json" -OJ'
     # - task: Docker@2
     #   displayName: Build and push an image to container registry
     #   inputs:
