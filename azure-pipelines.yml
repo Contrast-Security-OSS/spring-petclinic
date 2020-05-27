@@ -23,9 +23,17 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'ls -al'
+- task: AzureKeyVault@1
+  inputs:
+    azureSubscription: 'Microsoft Azure Sponsorship(4352f0e7-67db-4001-8352-25147175ee02)'
+    KeyVaultName: 'demo-on-demand-vault'
+    SecretsFilter: 'contrast-auth,contrast-key,contrast-org-id'
+    RunAsPreJob: false
 - task: Docker@2
   inputs:
     containerRegistry: 'SalesEngineering'
     repository: 'spring-petclinic'
     command: 'build'
     Dockerfile: '**/Dockerfile'
+    tags: 'test'
+    arguments: '--build-arg CONTRAST__DOWNLOAD__SERVER="https://eval.contrastsecurity.com" --build-arg CONTRAST__DOWNLOAD__ORG_ID=$(contrast-org-id) --build-arg CONTRAST__DOWNLOAD__API_KEY=$(contrast-key) --build-arg CONTRAST__DOWNLOAD__AUTH=$(contrast-auth)'
