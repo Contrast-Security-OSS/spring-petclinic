@@ -35,5 +35,10 @@ steps:
     repository: 'spring-petclinic'
     command: 'build'
     Dockerfile: '**/Dockerfile'
-    tags: 'test'
     arguments: '--build-arg CONTRAST__DOWNLOAD__SERVER="https://eval.contrastsecurity.com" --build-arg CONTRAST__DOWNLOAD__ORG_ID=$(contrast-org-id) --build-arg CONTRAST__DOWNLOAD__API_KEY=$(contrast-key) --build-arg CONTRAST__DOWNLOAD__AUTH=$(contrast-auth)'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'SalesEngineering'
+    repository: 'spring-petclinic'
+    command: 'push'
+    tags: 'test'
