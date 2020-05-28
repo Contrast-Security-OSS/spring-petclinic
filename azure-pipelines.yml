@@ -29,6 +29,13 @@ steps:
     KeyVaultName: 'demo-on-demand-vault'
     SecretsFilter: 'contrast-auth,contrast-key,contrast-org-id'
     RunAsPreJob: false
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      #apt-get update && apt-get -y upgrade && apt-get -y install curl
+      
+      curl -X GET      https://eval.contrastsecurity.com/Contrast/api/ng/$(contrast-org-id)/agents/default/JAVA      -H "Authorization: $(contrast-auth)"   -H "API-Key: $(contrast-key)"      -H "Accept: application/json" > contrast.jar
 - task: Docker@2
   inputs:
     containerRegistry: 'SalesEngineering'
