@@ -4,32 +4,10 @@
 # The petclinic jar will be built in AzDO prior. Ideally, I'll also separate the build pipeline from the release pipeline. We'll see.
 # But the goal here is only to bring in the Contrast agent at this time.
 
-FROM ubuntu:latest as builder
-
-ARG CONTRAST__DOWNLOAD__SERVER
-ARG CONTRAST__DOWNLOAD__ORG_ID
-ARG CONTRAST__DOWNLOAD__AUTH
-ARG CONTRAST__DOWNLOAD__API_KEY
-
-#CONTRAST SETUP
-
-WORKDIR /contrast
-
-
-
-RUN apt-get update && apt-get -y upgrade && apt-get -y install curl
-
-RUN curl -X GET      $CONTRAST__DOWNLOAD__SERVER/Contrast/api/ng/$CONTRAST__DOWNLOAD__ORG_ID/agents/default/JAVA      -H "Authorization: $CONTRAST__DOWNLOAD__AUTH"   -H "API-Key: $CONTRAST__DOWNLOAD__API_KEY"      -H "Accept: application/json" > contrast.jar
-
-
-RUN ls -al
-
-# Now let's make the container
-
 FROM openjdk:8-jre-alpine
 
 WORKDIR /contrast
-COPY --from=builder /contrast/contrast.jar contrast.jar
+COPY contrast.jar contrast.jar
 
 WORKDIR /app
 COPY target/spring-petclinic-2.3.0.*.jar spring-petclinic.jar
