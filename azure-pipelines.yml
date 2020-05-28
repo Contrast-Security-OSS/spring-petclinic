@@ -42,4 +42,4 @@ steps:
     containerRegistry: 'SalesEngineering'
     repository: '$(repositoryName)'
     command: 'push'
-    tags: $(Build.SourceBranch)
+    tags: '$(Build.SourceBranch)'
