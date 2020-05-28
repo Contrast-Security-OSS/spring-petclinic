@@ -42,9 +42,4 @@ steps:
     containerRegistry: 'SalesEngineering'
     repository: '$(repositoryName)'
     command: 'push'
-    tags: |
-      test
-      VERSION:$(Build.SourceBranch)
-      GIT_BRANCH:$(Build.SourceBranch)
-      GIT_COMMIT:$(Build.SourceVersion)
-      BUILD_ID:$(Build.BuildId)
+    tags: VERSION:$(Build.SourceBranch)
