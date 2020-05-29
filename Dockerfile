@@ -4,6 +4,8 @@
 # The petclinic jar will be built in AzDO prior. Ideally, I'll also separate the build pipeline from the release pipeline. We'll see.
 # But the goal here is only to bring in the Contrast agent at this time.
 
+LABEL TEST_LABEL=TEST
+
 FROM openjdk:8-jre-alpine
 
 WORKDIR /contrast
