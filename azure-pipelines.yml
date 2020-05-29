@@ -40,7 +40,7 @@ steps:
   inputs:
     containerRegistry: 'SalesEngineering'
     repository: $(repositoryName)
-    tags: test
+    tags: "$(appVersion)_$(demoVersion)"
     command: 'build'
     Dockerfile: '**/Dockerfile'
     arguments: '--build-arg CONTRAST__DOWNLOAD__SERVER="$(contrastServer)" --build-arg CONTRAST__DOWNLOAD__ORG_ID=$(contrast-org-id) --build-arg CONTRAST__DOWNLOAD__API_KEY=$(contrast-key) --build-arg CONTRAST__DOWNLOAD__AUTH=$(contrast-auth)'
@@ -49,5 +49,5 @@ steps:
     containerRegistry: 'SalesEngineering'
     repository: '$(repositoryName)'
     command: 'push'
-    tags: 'test'
+    tags: "$(appVersion)_$(demoVersion)"
     addPipelineData: true
