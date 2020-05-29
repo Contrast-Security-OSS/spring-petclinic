@@ -10,7 +10,7 @@ WORKDIR /contrast
 COPY contrast.jar contrast.jar
 
 WORKDIR /app
-COPY target/spring-petclinic-2.3.0.*.jar spring-petclinic.jar
+COPY target/spring-petclinic*.jar spring-petclinic.jar
 
 
 # AUTHENTICATION TO TEAMSERVER
