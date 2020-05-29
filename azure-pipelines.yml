@@ -12,6 +12,8 @@ pool:
 variables:
   repositoryName: 'spring-petclinic'
   contrastServer: 'https://eval.contrastsecurity.com'
+  appVersion: '2.3.0'
+  demoVersion: '1'
 
 steps:
 - task: Maven@3
