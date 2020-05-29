@@ -10,10 +10,11 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  repositoryName: 'spring-petclinic'
+  repositoryName: 'cs-demo-spring-petclinic'
   contrastServer: 'https://eval.contrastsecurity.com'
   appVersion: '2.3.0'
   demoVersion: '1'
+  applicationName: 'Spring-Petclinic'
 
 steps:
 - task: Maven@3
@@ -40,7 +41,7 @@ steps:
   inputs:
     containerRegistry: 'SalesEngineering'
     repository: $(repositoryName)
-    tags: "$(appVersion)_$(demoVersion)"
+    tags: "$(appVersion)"
     command: 'build'
     Dockerfile: '**/Dockerfile'
     arguments: '--build-arg CONTRAST__DOWNLOAD__SERVER="$(contrastServer)" --build-arg CONTRAST__DOWNLOAD__ORG_ID=$(contrast-org-id) --build-arg CONTRAST__DOWNLOAD__API_KEY=$(contrast-key) --build-arg CONTRAST__DOWNLOAD__AUTH=$(contrast-auth)'
@@ -49,5 +50,5 @@ steps:
     containerRegistry: 'SalesEngineering'
     repository: '$(repositoryName)'
     command: 'push'
-    tags: "$(appVersion)_$(demoVersion)"
+    tags: "$(appVersion)"
     addPipelineData: true
