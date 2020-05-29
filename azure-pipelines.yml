@@ -4,10 +4,14 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
 trigger:
-- master
+- 2.3.0_1
 
 pool:
   vmImage: 'ubuntu-latest'
+
+variables:
+  repositoryName: 'spring-petclinic'
+  contrastServer: 'https://eval.contrastsecurity.com'
 
 steps:
 - task: Maven@3
@@ -17,13 +21,33 @@ steps:
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    publishJUnitResults: false
     goals: 'package'
-- 
+- task: AzureKeyVault@1
+  inputs:
+    azureSubscription: 'Microsoft Azure Sponsorship(4352f0e7-67db-4001-8352-25147175ee02)'
+    KeyVaultName: 'demo-on-demand-vault'
+    SecretsFilter: 'contrast-auth,contrast-key,contrast-org-id'
+    RunAsPreJob: false
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      #apt-get update && apt-get -y upgrade && apt-get -y install curl
+      
+      curl -X GET      https://eval.contrastsecurity.com/Contrast/api/ng/$(contrast-org-id)/agents/default/JAVA      -H "Authorization: $(contrast-auth)"   -H "API-Key: $(contrast-key)"      -H "Accept: application/json" > contrast.jar
 - task: Docker@2
   inputs:
     containerRegistry: 'SalesEngineering'
-    repository: 'spring-petclinic'
+    repository: $(repositoryName)
+    tags: test
     command: 'build'
     Dockerfile: '**/Dockerfile'
+    arguments: '--build-arg CONTRAST__DOWNLOAD__SERVER="$(contrastServer)" --build-arg CONTRAST__DOWNLOAD__ORG_ID=$(contrast-org-id) --build-arg CONTRAST__DOWNLOAD__API_KEY=$(contrast-key) --build-arg CONTRAST__DOWNLOAD__AUTH=$(contrast-auth)'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'SalesEngineering'
+    repository: '$(repositoryName)'
+    command: 'push'
+    tags: 'test'
+    addPipelineData: true
