@@ -19,6 +19,7 @@ pipeline {
             steps {
                 sh 'echo "deploy to QA"'
                 sh 'echo "Run QA Tests"'
+                sh "ls target"
             }
         }
         stage("UAT") {
