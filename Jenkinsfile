@@ -7,6 +7,12 @@ pipeline {
             steps {
                 sh 'echo "build"'
                 sh 'echo "unit test"'
+                sh '''
+                echo "$PATH"
+                echo "M2_HOME"
+                mvn --version
+                '''
+                sh "mvn clean package"
             }
         }
         stage("QA") {
