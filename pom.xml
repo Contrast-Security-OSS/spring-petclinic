@@ -35,6 +35,11 @@
 		<!-- Fix: outdated components -->
         <!-- <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version> -->
     <cobertura.version>2.7</cobertura.version>
+    <username>fixme</username>
+    <apiKey>fixme</apiKey>
+    <serviceKey>fixme</serviceKey>
+    <apiUrl>fixme</apiUrl>
+    <orgUuid>fixme</orgUuid>
 
   </properties>
 
@@ -157,8 +162,8 @@
             <!-- <version>2.53.0</version> -->
         </dependency>
         <dependency>
-			<groupId>org.seleniumhq.selenium</groupId>  
-			<artifactId>htmlunit-driver</artifactId>  
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>htmlunit-driver</artifactId>
 			<!-- <version>2.20</version> -->
 		</dependency>
     <dependency>
@@ -276,7 +281,7 @@
     		<artifactId>spring-boot-maven-plugin</artifactId>
     		<executions>
                     <execution>
-                        <!-- Spring Boot Actuator displays build-related information if a META-INF/build-info.properties 
+                        <!-- Spring Boot Actuator displays build-related information if a META-INF/build-info.properties
                             file is present -->
                         <goals>
                             <goal>build-info</goal>
@@ -338,7 +343,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <!-- Spring Boot Actuator displays build-related information if a META-INF/build-info.properties 
+                        <!-- Spring Boot Actuator displays build-related information if a META-INF/build-info.properties
                             file is present -->
                         <goals>
                             <goal>build-info</goal>
@@ -381,15 +386,15 @@
 		             </execution>
 		       </executions>
 		       <configuration>
-			         <username>fixme</username>
-			         <apiKey>fixme</apiKey>
-			         <serviceKey>fixme</serviceKey>
-			         <apiUrl>http:fixme/Contrast/api</apiUrl>
-			         <orgUuid>fixme</orgUuid>
-			         <appName>petclinic</appName>
-			         <appVersion>petclinic-${build.number}</appVersion>
-			         <serverName>Maven.BuildServer.Local</serverName>
-			         <minSeverity>High</minSeverity>
+                     <username>${contrast-username}</username>
+                     <apiKey>${contrast-apiKey}</apiKey>
+                     <serviceKey>${contrast-serviceKey}</serviceKey>
+                     <apiUrl>${contrast-apiUrl}</apiUrl>
+                     <orgUuid>${contrast-orgUuid}</orgUuid>
+                     <appName>petclinic</appName>
+                     <appVersion>petclinic-${build.number}</appVersion>
+                     <serverName>Maven.BuildServer.Local</serverName>
+                     <minSeverity>High</minSeverity>
 		        </configuration>
 	        </plugin>
          </plugins>
