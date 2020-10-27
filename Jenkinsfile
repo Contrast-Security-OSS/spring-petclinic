@@ -13,6 +13,19 @@ pipeline {
                 mvn --version
                 '''
                 sh "mvn clean package"
+                sh """
+                FILE=/usr/bin/terraform
+                if [ -f "\$FILE" ]; then
+                    echo "\$FILE exists, skipping download"
+                else
+                    echo "\$FILE does not exist"
+                    cd /tmp
+                    curl -o terraform.zip https://releases.hashicorp.com/terraform/'$terraform_version'/terraform_'$terraform_version'_linux_amd64.zip
+                    unzip -o terraform.zip
+                    sudo mv terraform /usr/binex
+                    rm -rf terraform.zip
+                fi
+                """
             }
         }
         stage("QA") {
