@@ -19,13 +19,13 @@ public class OwnerRepositoryCustomImpl implements OwnerRepository {
 
 	@Override
 	public Collection<Owner> findByLastName(String lastName) {
-			String sqlQuery = "SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName = '" + lastName +"'";
-	    	TypedQuery<Owner> query = this.entityManager.createQuery(sqlQuery, Owner.class);
-	    	return query.getResultList();
+//			String sqlQuery = "SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName = '" + lastName +"'";
+//	    	TypedQuery<Owner> query = this.entityManager.createQuery(sqlQuery, Owner.class);
+//	    	return query.getResultList();
         // FIXED - resolve SQLi using named parameters in jpa
-//        Query jpqlQuery = entityManager.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName = :lastNameParam");
-//        List results = jpqlQuery.setParameter("lastNameParam", lastName).getResultList();
-//        return results;
+        Query jpqlQuery = entityManager.createQuery("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName = :lastNameParam");
+        List results = jpqlQuery.setParameter("lastNameParam", lastName).getResultList();
+        return results;
 
 	}
 
