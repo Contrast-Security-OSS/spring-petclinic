@@ -39,7 +39,8 @@
     <contrast-serviceKey>fixme</contrast-serviceKey>
     <contrast-apiUrl>fixme</contrast-apiUrl>
     <contrast-orgUuid>fixme</contrast-orgUuid>
-    <contrast-hostname>maven-${env.HOSTNAME}</contrast-hostname>
+    <contrast-hostname>maven-${hostname}</contrast-hostname>
+    <application-name>petclinic-maven-${env.USERNAME}</application-name>
   </properties>
 
   <dependencies>
@@ -305,7 +306,7 @@
                         -javaagent:${project.basedir}/contrast.jar
                         -Dcontrast.dir=${project.basedir}/working
                         -Dcontrast.log.daily=true
-                        -Dcontrast.standalone.appname=petclinic
+                        -Dcontrast.standalone.appname=${application-name}
                         -Dcontrast.override.appversion=petclinic-${build.number}
                         -Dcontrast.server=spring-petclinic-qa
                         -Dcontrast.server.tags=${env.USERNAME},spring
@@ -324,7 +325,7 @@
                         -javaagent:${project.basedir}/contrast.jar
                         -Dcontrast.dir=${project.basedir}/working
                         -Dcontrast.log.daily=true
-                        -Dcontrast.standalone.appname=petclinic
+                        -Dcontrast.standalone.appname=${application-name}
                         -Dcontrast.override.appversion=petclinic-${build.number}
                         -Dcontrast.server=spring-petclinic-dev
                         -Dcontrast.server.tags=${env.USERNAME},spring
@@ -383,7 +384,7 @@
                      <serviceKey>${contrast-serviceKey}</serviceKey>
                      <apiUrl>${contrast-apiUrl}</apiUrl>
                      <orgUuid>${contrast-orgUuid}</orgUuid>
-                     <appName>petclinic-${env.USERNAME}</appName>
+                     <appName>${application-name}</appName>
                      <appVersion>petclinic-${build.number}</appVersion>
                      <serverName>${contrast-hostname}</serverName>
                      <minSeverity>High</minSeverity>
@@ -392,5 +393,26 @@
          </plugins>
        </build>
     </profile>
-  </profiles>
+      <profile>
+          <id>unix</id>
+          <activation>
+              <os>
+                  <family>unix</family>
+              </os>
+          </activation>
+          <properties>
+              <hostname>${env.HOSTNAME}</hostname>
+          </properties>
+      </profile>
+      <profile>
+          <id>windows</id>
+          <activation>
+              <os>
+                  <family>Windows</family>
+              </os>
+          </activation>
+          <properties>
+              <hostname>${env.COMPUTERNAME}</hostname>
+          </properties>
+      </profile>  </profiles>
 </project>
