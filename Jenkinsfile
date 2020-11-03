@@ -13,7 +13,19 @@ pipeline {
                 mvn --version
                 '''
                 withCredentials([file(credentialsId: 'teamserver_yaml', variable: 'yaml')]) {
-                    sh "cat $yaml"
+                    $CONTRAST__API__API_KEY="$(cat $yaml | jq -r "api.api_key")"
+                    $CONTRAST__API__USER__NAME=="$(cat $yaml | jq -r "api.user_name")"
+                    $CONTRAST__API__API_URL=="$(cat $yaml | jq -r "api.api_url")"
+                    $CONTRAST__API__SERVICE_KEY=="$(cat $yaml | jq -r "api.service_key")"
+
+                    sh '''
+                    echo "api_key ${CONTRAST__API__API_KEY}"
+                    echo "username ${CONTRAST__API__USER__NAME}"
+                    echo "apiUrl ${CONTRAST__API__API_URL}"
+                    echo "service key ${CONTRAST__API__SERVICE_KEY}"
+                    echo "orguuid ${api.org_uuid}"
+                    '''
+
                 }
             }
         }
