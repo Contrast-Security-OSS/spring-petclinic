@@ -13,8 +13,11 @@ pipeline {
                 mvn --version
                 '''
                 withCredentials([file(credentialsId: 'teamserver_yaml', variable: 'yaml')]) {
-                    def jsonYaml = readJSON file: "$yaml"
-
+                    script {
+                        def contents = readfile(env.yaml)
+                        def jsonYaml = readJSON(env.yaml)
+                        writeFile file 'contrast_security.yaml', text: "$contents"
+                    }
                     sh '''
                     echo "api_key ${jsonYaml.api.api_key}"
                     echo "username ${jsonYaml.api.user_name}""
