@@ -17,7 +17,7 @@ pipeline {
                     sh "echo api_key ${yaml.api.api_key}"
                     sh "echo apiUrl ${yaml.api.apiUrl}"
                     sh "echo orgUuid ${yaml.api.orgUuid}"
-                    echo "mvn -P contrast-maven  -Dcontrast-username="${yaml.api.user_name}" -Dcontrast-apiKey=${yaml.api.api_key} -Dcontrast-serviceKey=${yaml.api.user_name} -Dcontrast-apiUrl="${yaml.api.url}" -Dcontrast-orgUuid=${jenkins.orgUuid} clean verify"
+                    echo "mvn -P contrast-maven  -Dcontrast-username=\"${yaml.api.user_name}\" -Dcontrast-apiKey=${yaml.api.api_key} -Dcontrast-serviceKey=${yaml.api.user_name} -Dcontrast-apiUrl=\"${yaml.api.url}\" -Dcontrast-orgUuid=${jenkins.orgUuid} clean verify"
                 }
             }
         }
