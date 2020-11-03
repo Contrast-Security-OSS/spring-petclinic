@@ -13,7 +13,7 @@ pipeline {
                 mvn --version
                 '''
                 withCredentials([file(credentialsId: 'teamserver_yaml', variable: 'yaml')]) {
-                    def jsonYaml = readJSON file: env.yaml
+                    def jsonYaml = readJSON file: yaml
 
                     sh '''
                     echo "api_key ${jsonYaml.api.api_key}"
