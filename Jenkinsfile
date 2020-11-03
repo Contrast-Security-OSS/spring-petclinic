@@ -12,7 +12,7 @@ pipeline {
                 echo "M2_HOME"
                 mvn --version
                 '''
-                withCredentials([file(credentialsId: 'env.teamserver_yaml', variable: 'yaml')]) {
+                withCredentials([file(credentialsId: 'teamserver_yaml', variable: 'yaml')]) {
                     sh "echo username ${yaml.api.user_name}"
                     sh "echo api_key ${yaml.api.api_key}"
                     sh "echo apiUrl ${yaml.api.apiUrl}"
