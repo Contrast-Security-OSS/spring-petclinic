@@ -12,7 +12,20 @@ pipeline {
                 echo "M2_HOME"
                 mvn --version
                 '''
-                sh "mvn clean package"
+                withCredentials([file(credentialsId: teamserver_yaml, variable: 'yaml')]) {
+                    sh "echo username ${yaml.api.user_name}"
+                    sh "echo api_key ${yaml.api.api_key}"
+                    sh "echo apiUrl ${yaml.api.apiUrl}"
+                    sh "echo orgUuid ${yaml.api.orgUuid}"
+                    echo "mvn -P contrast-maven  -Dcontrast-username="${yaml.api.user_name}" -Dcontrast-apiKey=${yaml.api.api_key} -Dcontrast-serviceKey=${yaml.api.user_name} -Dcontrast-apiUrl="${yaml.api.url}" -Dcontrast-orgUuid=${jenkins.orgUuid} clean verify"
+                }
+            }
+        }
+        stage("QA") {
+            steps {
+                sh 'echo "deploy to QA"'
+                sh 'echo "Run QA Tests"'
+                sh "ls target"
                 sh """
                 FILE=/usr/bin/terraform
                 if [ -f "\$FILE" ]; then
@@ -26,13 +39,16 @@ pipeline {
                     rm -rf terraform.zip
                 fi
                 """
-            }
-        }
-        stage("QA") {
-            steps {
-                sh 'echo "deploy to QA"'
-                sh 'echo "Run QA Tests"'
-                sh "ls target"
+                script {
+                    withCredentials([file(credentialsId: env.contrast_yaml, variable: 'path')]) {
+                        def contents = readFile(env.path)
+                        writeFile file: 'contrast_security.yaml', text: "$contents"
+                    }
+                }
+                sh """
+                terraform init
+                npm i puppeteer
+                """
             }
         }
         stage("UAT") {
