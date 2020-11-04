@@ -34,14 +34,14 @@
     <!-- Fix: outdated components -->
     <!-- <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version> -->
     <cobertura.version>2.7</cobertura.version>
-    <contrast-user-name>fixme</contrast-user-name>
+    <contrast-first-name>fixme</contrast-first-name>
     <contrast-login-username>fixme</contrast-login-username>
     <contrast-apiKey>fixme</contrast-apiKey>
     <contrast-serviceKey>fixme</contrast-serviceKey>
     <contrast-apiUrl>fixme</contrast-apiUrl>
     <contrast-orgUuid>fixme</contrast-orgUuid>
     <contrast-hostname>maven-${hostname}</contrast-hostname>
-    <application-name>petclinic-maven-${contrast-user-name}</application-name>
+    <application-name>petclinic-maven-${contrast-first-name}</application-name>
   </properties>
 
   <dependencies>
@@ -331,7 +331,7 @@
                      <orgUuid>${contrast-orgUuid}</orgUuid>
                      <appName>${application-name}</appName>
                      <appVersion>petclinic-${build.number}</appVersion>
-<!--                     <applicationTags>${contrast-user-name},spring</applicationTags>-->
+<!--                     <applicationTags>${contrast-first-name},spring</applicationTags>-->
 <!--                     <applicationSessionMetadata>buildNumber=${build.number}</applicationSessionMetadata>-->
                      <serverName>${contrast-hostname}</serverName>
                      <minSeverity>High</minSeverity>
