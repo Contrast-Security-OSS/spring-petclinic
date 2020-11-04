@@ -40,7 +40,7 @@
     <contrast-apiUrl>fixme</contrast-apiUrl>
     <contrast-orgUuid>fixme</contrast-orgUuid>
     <contrast-hostname>maven-${hostname}</contrast-hostname>
-    <application-name>petclinic-maven-${env.USERNAME}</application-name>
+    <application-name>petclinic-maven-${username}</application-name>
   </properties>
 
   <dependencies>
