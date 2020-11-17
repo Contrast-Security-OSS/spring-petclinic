@@ -8,6 +8,6 @@ output "fqdn" {
 }
 
 output "contrast" {
-  value = "This app should appear in the environment ${data.external.yaml.result.url}"
+  value = "This app should appear in the environment ${local.url}"
 }
 
