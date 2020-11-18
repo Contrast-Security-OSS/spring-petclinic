@@ -5,7 +5,7 @@ variable "initials" {
 
 variable "location" {
   description = "The Azure location where all resources in this example should be created, to find your nearest run `az account list-locations -o table`"
-  default     = "East US"
+  default     = "eastus"
 }
 
 variable "appname" {
@@ -20,7 +20,7 @@ variable "servername" {
 
 variable "environment" {
   description = "The Contrast environment for the app. Valid values: development, qa or production"
-  default     = "development"
+  default     = "Development"
 }
 
 variable "session_metadata" {
@@ -37,4 +37,3 @@ variable "servertags" {
   description = "Tags to be associated with the server in Contrast TeamServer."
   default     = ""
 }
-
