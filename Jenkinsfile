@@ -12,21 +12,20 @@ pipeline {
                 echo "M2_HOME"
                 mvn --version
                 '''
-                withCredentials([file(credentialsId: 'teamserver_yaml', variable: 'yaml')]) {
-                    script {
+                script {
+                    withCredentials([file(credentialsId: 'teamserver_yaml', variable: 'yaml')]) {
                         def contents = readfile(env.yaml)
                         def jsonYaml = readJSON(env.yaml)
                         writeFile file 'contrast_security.yaml', text: "$contents"
                     }
-                    sh '''
-                    echo "api_key ${jsonYaml.api.api_key}"
-                    echo "username ${jsonYaml.api.user_name}""
-                    echo "apiUrl ${jsonYaml.api.api_url}"
-                    echo "service key ${jsonYaml.api.service_key}"
-                    echo "orguuid ${api.orguuid}"
-                    '''
-
                 }
+                sh '''
+                echo "api_key ${jsonYaml.api.api_key}"
+                echo "username ${jsonYaml.api.user_name}""
+                echo "apiUrl ${jsonYaml.api.api_url}"
+                echo "service key ${jsonYaml.api.service_key}"
+                echo "orguuid ${api.orguuid}"
+                '''
             }
         }
         stage("QA") {

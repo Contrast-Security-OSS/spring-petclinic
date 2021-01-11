@@ -41,6 +41,7 @@
     <contrast-apiUrl>fixme</contrast-apiUrl>
     <contrast-orgUuid>fixme</contrast-orgUuid>
     <contrast-hostname>maven-${hostname}</contrast-hostname>
+    <contrast-environment>Development</contrast-environment>
     <application-name>petclinic-maven-${contrast-first-name}</application-name>
   </properties>
 
@@ -297,6 +298,62 @@
       </activation>
       <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <!--       Verify security and coverage during automated tests. -->
+                <configuration>
+                    <argLine>
+                        -javaagent:${project.basedir}/jacocoagent.jar=destfile=${project.basedir}/target/jacoco.exec
+                        -javaagent:${project.basedir}/contrast.jar
+                        -Dcontrast.dir=${project.basedir}/working
+                        -Dcontrast.log.daily=true
+                        -Dcontrast.standalone.appname=${application-name}
+                        -Dcontrast.override.appversion=petclinic-${build.number}
+                        -Dcontrast.server=spring-petclinic-qa
+                        -Dcontrast.server.tags=${env.USERNAME},spring
+<!--                        -Dcontrast.application.tags=${env.USERNAME},spring-->
+                        -Dcontrast.env=${contrast-environment}
+                        -Dcsrf.protected.uris=csrf-urls.txt
+                    </argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- Verify security and coverage during normal use -->
+                    <jvmArguments>
+                        -javaagent:${project.basedir}/contrast.jar
+                        -Dcontrast.dir=${project.basedir}/working
+                        -Dcontrast.log.daily=true
+                        -Dcontrast.standalone.appname=${application-name}
+                        -Dcontrast.override.appversion=petclinic-${build.number}
+                        -Dcontrast.server=spring-petclinic-dev
+                        -Dcontrast.server.tags=${env.USERNAME},spring
+<!--                        -Dcontrast.application.tags=${env.USERNAME},spring-->
+                        -Dcontrast.env=${contrast-environment}
+                        -Dcontrast.classpath.libs=true
+                    </jvmArguments>
+                </configuration>
+                <executions>
+                    <execution>
+                        <!-- Spring Boot Actuator displays build-related information if a META-INF/build-info.properties
+                            file is present -->
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                        <configuration>
+                            <additionalProperties>
+                                <encoding.source>${project.build.sourceEncoding}</encoding.source>
+                                <encoding.reporting>${project.reporting.outputEncoding}</encoding.reporting>
+                                <java.source>${maven.compiler.source}</java.source>
+                                <java.target>${maven.compiler.target}</java.target>
+                            </additionalProperties>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
       </build>
     </profile>
@@ -307,7 +364,7 @@
             <plugin>
 		       <groupId>com.contrastsecurity</groupId>
 		       <artifactId>contrast-maven-plugin</artifactId>
-		       <version>2.8</version>
+		       <version>2.10</version>
 		       <executions>
 		             <execution>
 		                 <id>install-contrast-jar</id>
@@ -331,8 +388,9 @@
                      <orgUuid>${contrast-orgUuid}</orgUuid>
                      <appName>${application-name}</appName>
                      <appVersion>petclinic-${build.number}</appVersion>
-<!--                     <applicationTags>${contrast-first-name},spring</applicationTags>-->
-<!--                     <applicationSessionMetadata>buildNumber=${build.number}</applicationSessionMetadata>-->
+                     <environment>${contrast-environment}</environment>
+    <!--                     <applicationTags>${contrast-first-name},spring</applicationTags>-->
+<!--                     <applicationSessionMetadata>version=${build.number}</applicationSessionMetadata>-->
                      <serverName>${contrast-hostname}</serverName>
                      <minSeverity>High</minSeverity>
 		        </configuration>
