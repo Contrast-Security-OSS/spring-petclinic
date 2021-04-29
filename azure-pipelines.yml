@@ -26,12 +26,14 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: false
     goals: 'package'
+
 - task: AzureKeyVault@1
   inputs:
     azureSubscription: 'Microsoft Azure Sponsorship(4352f0e7-67db-4001-8352-25147175ee02)'
     KeyVaultName: 'demo-on-demand-vault'
-    SecretsFilter: 'contrast-auth,contrast-key,contrast-org-id'
+    SecretsFilter: '*'
     RunAsPreJob: false
+
 - task: Bash@3
   inputs:
     targetType: 'inline'
