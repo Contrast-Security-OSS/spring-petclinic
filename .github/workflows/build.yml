@@ -1,0 +1,62 @@
+name: Build and Run Security Analysis
+
+on:
+  push:
+    branches:
+      - contrast-scan
+
+jobs:
+  build-and-analyze:
+    name: Install contrast-maven-plugin snapshot
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt-hotspot'
+      - name: Cache Maven Packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Checkout contrast-maven-plugin snapshot
+        uses: actions/checkout@v2
+        with:
+          repository: Contrast-Security-OSS/contrast-maven-plugin
+          ref: java-3297-create-project-if-not-exists
+          path: contrast-maven-plugin
+      - name: Cache Maven Wrapper (contrast-maven-plugin)
+        uses: actions/cache@v2
+        with:
+          path: ./contrast-maven-plugin/.mvn/wrapper/maven-wrapper.jar
+          key: ${{ runner.os }}-maven-wrapper-${{ hashFiles('./contrast-maven-plugin/.mvn/wrapper/maven-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-contrast-maven-plugin-maven-wrapper
+      - name: Install contrast-maven-plugin snapshot
+        working-directory: contrast-maven-plugin
+        run: ./mvnw --batch-mode -DskipTests install
+      - name: Checkout Project
+        uses: actions/checkout@v2
+        with:
+          path: spring-petclinic
+      - name: Cache Maven Wrapper (spring-petclinic)
+        uses: actions/cache@v2
+        with:
+          path: ./spring-petclinic/.mvn/wrapper/maven-wrapper.jar
+          key: ${{ runner.os }}-maven-wrapper-${{ hashFiles('./spring-petclinic/.mvn/wrapper/maven-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-spring-petclinic-maven-wrapper
+      - name: Build and Run Contrast Scan
+        working-directory: spring-petclinic
+        run: ./mvnw --batch-mode -Pcontrast-scan verify
+        env:
+          CONTRAST__API__URL: https://teamserver-staging.contsec.com/Contrast
+          CONTRAST__API__ORGANIZATION_ID: 6fb73b19-37de-44e2-8ac8-0a8de2707048
+          CONTRAST__API__USER_NAME: ${{ secrets.CONTRAST__API__USER_NAME }}
+          CONTRAST__API__API_KEY: ${{ secrets.CONTRAST__API__API_KEY }}
+          CONTRAST__API__SERVICE_KEY: ${{ secrets.CONTRAST__API__SERVICE_KEY }}
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: spring-petclinic/target/contrast-scan-reports/contrast-scan-results.sarif.json
+          checkout_path: ${{ github.workspace}}/spring-petclinic
