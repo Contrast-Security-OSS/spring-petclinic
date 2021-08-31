@@ -41,6 +41,11 @@ jobs:
           CONTRAST__API__API_KEY: ${{ secrets.CONTRAST__API__API_KEY }}
           CONTRAST__API__SERVICE_KEY: ${{ secrets.CONTRAST__API__SERVICE_KEY }}
 
+      - name: Augment SARIF
+        run: |
+          jq '.runs[].tool.driver += {rules: [{id: "sql-injection",name: "SQL Injection", shortDescription: {text: "short-description"}, fullDescription: {text: "full-description"}, help: {text: "help"}, properties: {tags: ["security"]}}]}' target/contrast-scan-reports/contrast-scan-results.sarif.json > t
+          mv t target/contrast-scan-reports/contrast-scan-results.sarif.json
+
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v1
         with:
