@@ -15,15 +15,15 @@
       "ruleId" : "sql-injection",
       "level" : "error",
       "message" : {
-        "text" : "sql-injection 1 in OwnerController.deleteOwner() reachable from OwnerController.deleteOwner()"
+        "text" : "sql-injection 2 in OwnerController.deleteOwner() reachable from OwnerController.deleteOwner()"
       },
       "locations" : [ {
         "physicalLocation" : {
           "artifactLocation" : {
-            "uri" : "file:///Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
+            "uri" : "/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
           },
           "region" : {
-            "startLine" : 164,
+            "startLine" : 165,
             "startColumn" : 1,
             "snippet" : {
               "text" : "\t\t\tstatement.execute(\"DELETE FROM owners WHERE id = \" + ownerId);"
@@ -39,15 +39,14 @@
       },
       "codeFlows" : [ {
         "message" : {
-          "text" : "Untrusted data flow from OwnerController.java:1 via variable `ownerId` to /Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java:164 via variable `$stack1`"
+          "text" : "Untrusted data flow from OwnerController.java:1 via variable `ownerId` to /Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java:165 via variable `$stack1`"
         },
         "threadFlows" : [ {
           "locations" : [ {
             "location" : {
               "physicalLocation" : {
                 "artifactLocation" : {
-                  "uri" : "file:///Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
-                  "uriBaseId" : "%SRCROOT%"
+                  "uri" : "/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
                 },
                 "region" : {
                   "startLine" : 1,
@@ -81,8 +80,7 @@
             "location" : {
               "physicalLocation" : {
                 "artifactLocation" : {
-                  "uri" : "/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
-                  "uriBaseId" : "%SRCROOT%"
+                  "uri" : "/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
                 },
                 "region" : {
                   "startLine" : 163,
@@ -116,21 +114,20 @@
             "location" : {
               "physicalLocation" : {
                 "artifactLocation" : {
-                  "uri" : "/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
-                  "uriBaseId" : "%SRCROOT%"
+                  "uri" : "/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
                 },
                 "region" : {
-                  "startLine" : 164,
+                  "startLine" : 165,
                   "snippet" : {
                     "rendered" : {
                       "text" : "\t\t\tstatement.execute(\"DELETE FROM owners WHERE id = \" + ownerId);"
                     }
                   },
                   "message" : {
-                    "text" : "This data was used dangerously at '/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java:164' in the method 'OwnerController.deleteOwner()' via variable '$stack1'"
+                    "text" : "This data was used dangerously at '/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java:165' in the method 'OwnerController.deleteOwner()' via variable '$stack1'"
                   },
                   "properties" : {
-                    "ir" : [ "$stack1 = new java.lang.StringBuilder;    // Java line 164", "$stack2 = \"DELETE FROM owners WHERE id = \";    // Java line 164", "$stack1 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack2);    // Java line 164", "$stack1 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(ownerId);    // Java line 164", "$stack1 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.String toString()>();    // Java line 164", "interfaceinvoke statement.<java.sql.Statement: boolean execute(java.lang.String)>($stack1);    // Java line 164" ]
+                    "ir" : [ "$stack1 = new java.lang.StringBuilder;    // Java line 165", "$stack2 = \"DELETE FROM owners WHERE id = \";    // Java line 165", "$stack1 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>($stack2);    // Java line 165", "$stack1 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.StringBuilder append(java.lang.String)>(ownerId);    // Java line 165", "$stack1 = virtualinvoke $stack1.<java.lang.StringBuilder: java.lang.String toString()>();    // Java line 165", "interfaceinvoke statement.<java.sql.Statement: boolean execute(java.lang.String)>($stack1);    // Java line 165" ]
                   }
                 }
               },
@@ -1636,19 +1633,6 @@
             }
           }
         }, {
-          "ruleId" : "sql-injection",
-          "location" : {
-            "artifactLocation" : {
-              "uri" : "OwnerController.java"
-            },
-            "region" : {
-              "startLine" : 164,
-              "snippet" : {
-                "text" : "statement.execute($stack1);    // Java line 164"
-              }
-            }
-          }
-        }, {
           "ruleId" : "reflection-injection",
           "location" : {
             "artifactLocation" : {
@@ -1697,6 +1681,19 @@
               "startLine" : 66,
               "snippet" : {
                 "text" : "$stack0 = Pattern.compile($stack0);    // Java line 66"
+              }
+            }
+          }
+        }, {
+          "ruleId" : "sql-injection",
+          "location" : {
+            "artifactLocation" : {
+              "uri" : "OwnerController.java"
+            },
+            "region" : {
+              "startLine" : 165,
+              "snippet" : {
+                "text" : "statement.execute($stack1);    // Java line 165"
               }
             }
           }
