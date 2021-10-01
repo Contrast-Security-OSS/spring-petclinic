@@ -35,16 +35,22 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - name: Build and Run Contrast Scan
-        run: ./mvnw --batch-mode verify
-        env:
-          CONTRAST__API__URL: https://teamserver-staging.contsec.com/Contrast
-          CONTRAST__API__ORGANIZATION_ID: 6fb73b19-37de-44e2-8ac8-0a8de2707048
-          CONTRAST__API__USER_NAME: ${{ secrets.CONTRAST__API__USER_NAME }}
-          CONTRAST__API__API_KEY: ${{ secrets.CONTRAST__API__API_KEY }}
-          CONTRAST__API__SERVICE_KEY: ${{ secrets.CONTRAST__API__SERVICE_KEY }}
+        #- name: Build and Run Contrast Scan
+        #run: ./mvnw --batch-mode verify
+        #env:
+        #  CONTRAST__API__URL: https://teamserver-staging.contsec.com/Contrast
+        #  CONTRAST__API__ORGANIZATION_ID: 6fb73b19-37de-44e2-8ac8-0a8de2707048
+        #  CONTRAST__API__USER_NAME: ${{ secrets.CONTRAST__API__USER_NAME }}
+        #  CONTRAST__API__API_KEY: ${{ secrets.CONTRAST__API__API_KEY }}
+        #  CONTRAST__API__SERVICE_KEY: ${{ secrets.CONTRAST__API__SERVICE_KEY }}
 
-      - name: Upload Contrast Scan Results
+        #- name: Upload Contrast Scan Results
+        #uses: github/codeql-action/upload-sarif@v1
+        #with:
+        #  sarif_file: target/contrast-scan-reports/contrast-scan-results.sarif.json
+      
+      - name: Upload Contrast Scan Tester Results
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: target/contrast-scan-reports/contrast-scan-results.sarif.json
+          sarif_file: petclinic-eh.sarif
+          checkout_path: "/Users/shaneschisler/projects/spring-petclinic"
