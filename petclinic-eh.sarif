@@ -20,7 +20,7 @@
       "locations" : [ {
         "physicalLocation" : {
           "artifactLocation" : {
-            "uri" : "/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
+            "uri" : "file:///Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
           },
           "region" : {
             "startLine" : 165,
@@ -46,7 +46,7 @@
             "location" : {
               "physicalLocation" : {
                 "artifactLocation" : {
-                  "uri" : "/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
+                  "uri" : "file:///Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
                 },
                 "region" : {
                   "startLine" : 1,
@@ -80,7 +80,7 @@
             "location" : {
               "physicalLocation" : {
                 "artifactLocation" : {
-                  "uri" : "/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
+                  "uri" : "file:///Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
                 },
                 "region" : {
                   "startLine" : 163,
@@ -114,7 +114,7 @@
             "location" : {
               "physicalLocation" : {
                 "artifactLocation" : {
-                  "uri" : "/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
+                  "uri" : "file:///Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
                 },
                 "region" : {
                   "startLine" : 165,
