@@ -15,12 +15,12 @@
       "ruleId" : "sql-injection",
       "level" : "error",
       "message" : {
-        "text" : "sql-injection in OwnerController.deleteOwner() reachable from OwnerController.deleteOwner()"
+        "text" : "sql-injection 1 in OwnerController.deleteOwner() reachable from OwnerController.deleteOwner()"
       },
       "locations" : [ {
         "physicalLocation" : {
           "artifactLocation" : {
-            "uri" : "/Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
+            "uri" : "file:///Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java"
           },
           "region" : {
             "startLine" : 164,
@@ -46,7 +46,7 @@
             "location" : {
               "physicalLocation" : {
                 "artifactLocation" : {
-                  "uri" : "OwnerController.java",
+                  "uri" : "file:///Users/shaneschisler/projects/spring-petclinic/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java",
                   "uriBaseId" : "%SRCROOT%"
                 },
                 "region" : {

@@ -53,3 +53,4 @@ jobs:
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: petclinic-eh.sarif
+          checkout_path: "/Users/shaneschisler/projects/spring-petclinic"
