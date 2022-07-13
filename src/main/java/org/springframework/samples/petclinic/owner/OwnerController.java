@@ -15,11 +15,16 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.sql.DataSource;
 import org.springframework.samples.petclinic.visit.VisitRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,9 +50,19 @@ class OwnerController {
 
 	private VisitRepository visits;
 
-	public OwnerController(OwnerRepository clinicService, VisitRepository visits) {
+	private final DataSource dataSource;
+
+	public OwnerController(OwnerRepository clinicService, VisitRepository visits, final DataSource dataSource) {
 		this.owners = clinicService;
 		this.visits = visits;
+		this.dataSource = dataSource;
+	}
+
+	@DeleteMapping("/owners/{ownerId}")
+	public void deleteOwner(@PathVariable("ownerId") final String id) throws SQLException {
+		try (Connection connection = dataSource.getConnection(); Statement statement = connection.createStatement()) {
+			statement.execute("DELETE FROM owners WHERE  id = " + id);
+		}
 	}
 
 	@InitBinder
